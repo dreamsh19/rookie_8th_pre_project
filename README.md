@@ -1,0 +1,1 @@
+# rookie_8th_pre_project
