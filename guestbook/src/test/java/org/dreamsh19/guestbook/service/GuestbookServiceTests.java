@@ -1,6 +1,9 @@
 package org.dreamsh19.guestbook.service;
 
 import org.dreamsh19.guestbook.dto.GuestbookDTO;
+import org.dreamsh19.guestbook.dto.PageRequestDTO;
+import org.dreamsh19.guestbook.dto.PageResultDTO;
+import org.dreamsh19.guestbook.entity.Guestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +15,7 @@ public class GuestbookServiceTests {
     private GuestbookService service;
 
     @Test
-    public void testRegister(){
+    public void testRegister() {
 
         GuestbookDTO guestbookDTO = GuestbookDTO.builder()
                 .title("Sample Title...")
@@ -22,4 +25,20 @@ public class GuestbookServiceTests {
 
         System.out.println(service.register(guestbookDTO));
     }
+
+    @Test
+    public void testList() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
+
+        PageResultDTO<GuestbookDTO, Guestbook> pageResultDTO = service.getList(pageRequestDTO);
+        for (GuestbookDTO guestbookDTO : pageResultDTO.getDtoList()) {
+            System.out.println(guestbookDTO);
+        }
+        System.out.println("=======================");
+        pageResultDTO.getPageList().forEach(i -> System.out.println(i));
+    }
+
 }

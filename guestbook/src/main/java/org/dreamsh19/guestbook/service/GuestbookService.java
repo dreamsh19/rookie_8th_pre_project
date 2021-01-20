@@ -1,10 +1,14 @@
 package org.dreamsh19.guestbook.service;
 
 import org.dreamsh19.guestbook.dto.GuestbookDTO;
+import org.dreamsh19.guestbook.dto.PageRequestDTO;
+import org.dreamsh19.guestbook.dto.PageResultDTO;
 import org.dreamsh19.guestbook.entity.Guestbook;
 
 public interface GuestbookService {
     Long register(GuestbookDTO dto);
+
+    PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO pageRequestDTO);
 
     default Guestbook dtoToEntity(GuestbookDTO dto){
         Guestbook entity = Guestbook.builder()
@@ -14,5 +18,15 @@ public interface GuestbookService {
                 .writer(dto.getWriter())
                 .build();
         return entity;
+    }
+
+    default GuestbookDTO entityToDto(Guestbook entity){
+        GuestbookDTO dto = GuestbookDTO.builder()
+                .gno(entity.getGno())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .writer(entity.getWriter())
+                .build();
+        return dto;
     }
 }
