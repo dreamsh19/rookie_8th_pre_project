@@ -35,9 +35,7 @@
             </form>
 
             <button type="button" class="btn btn-primary modifyBtn">Modify</button>
-            <a th:href="@{/guestbook/list(page = ${requestDTO.page})}">
-                <button type="button" class="btn btn-info listBtn">List</button>
-            </a>
+            <button type="button" class="btn btn-info listBtn">List</button>
             <button type="button" class="btn btn-danger removeBtn">Remove</button>
 
             <script th:inline="javascript">
@@ -60,6 +58,21 @@
                         .attr("method","post")
                         .submit();
                });
+
+               $(".listBtn").click(function(){
+                    var pageInfo = $("input[name='page']");
+
+                    actionForm.empty();
+                    actionForm.append(pageInfo);
+                    actionForm
+                        .attr("action","/guestbook/list")
+                        .attr("method","get");
+
+                    actionForm.submit();
+
+
+               });
+
             </script>
     </th:block>
 </th:block>
