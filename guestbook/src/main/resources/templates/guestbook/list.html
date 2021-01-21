@@ -39,6 +39,11 @@
 
         </ul>
 
+        <script th:inline="javascript">
+            var msg = [[${msg}]];
+            console.log(msg);
+        </script>
+
     </th:block>
 </th:block>
 </html>
