@@ -44,9 +44,8 @@ public class GuestbookController {
     public String registerPost(GuestbookDTO dto, RedirectAttributes redirectAttributes) {
         log.info("dto... " + dto);
 
-        Long gno = 602L;
-//        Long gno = service.register(dto);
-//
+        Long gno = service.register(dto);
+
         redirectAttributes.addFlashAttribute("msg",gno);
 
         return "redirect:/guestbook/list";
