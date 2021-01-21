@@ -69,5 +69,10 @@ public class GuestbookServiceImpl implements GuestbookService {
         }
     }
 
+    @Override
+    public void remove(Long gno) {
+        repository.deleteById(gno);
+    }
+
 
 }
