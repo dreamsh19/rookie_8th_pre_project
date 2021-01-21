@@ -53,6 +53,13 @@
                         .attr("method","post")
                         .submit();
                });
+
+               $(".removeBtn").click(function(){
+                    actionForm
+                        .attr("action","/guestbook/remove")
+                        .attr("method","post")
+                        .submit();
+               });
             </script>
     </th:block>
 </th:block>
