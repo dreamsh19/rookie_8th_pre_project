@@ -5,6 +5,7 @@
     <th:block th:fragment="content">
         <h1 class="mt-4">GuestBook Modify Page</h1>
             <form action="/guestbook/modify" method="post">
+                <input type="hidden" name="page" th:value="${requestDTO.page}">
             <div class="form-group">
                 <label >Gno</label>
                 <input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly>
@@ -33,12 +34,26 @@
             </div>
             </form>
 
-            <button type="button" class="btn btn-primary">Modify </button>
+            <button type="button" class="btn btn-primary modifyBtn">Modify</button>
             <a th:href="@{/guestbook/list(page = ${requestDTO.page})}">
-                <button type="button" class="btn btn-info">List</button>
+                <button type="button" class="btn btn-info listBtn">List</button>
             </a>
-            <button type="button" class="btn btn-danger">Remove</button>
+            <button type="button" class="btn btn-danger removeBtn">Remove</button>
 
+            <script th:inline="javascript">
+
+                var actionForm = $("form");
+
+                $(".modifyBtn").click(function(){
+                    if(!confirm("수정하시겠습니까?")){
+                        return ;
+                    }
+                    actionForm
+                        .attr("action","/guestbook/modify")
+                        .attr("method","post")
+                        .submit();
+               });
+            </script>
     </th:block>
 </th:block>
 </html>
