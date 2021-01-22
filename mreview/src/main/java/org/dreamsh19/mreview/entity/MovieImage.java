@@ -14,11 +14,11 @@ public class MovieImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inum;
+    private Long ino;
 
     private String uuid;
 
-    private String imagName;
+    private String imageName;
 
     private String path;
 
