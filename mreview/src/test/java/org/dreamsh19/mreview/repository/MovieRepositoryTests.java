@@ -13,6 +13,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -53,6 +54,15 @@ public class MovieRepositoryTests {
         Page<Object[]> result = movieRepository.getListPage(pageRequest);
 
         for (Object[] objects : result.getContent()) {
+            System.out.println(Arrays.toString(objects));
+        }
+    }
+
+    @Test
+    public void testGetMovieWithAll(){
+        Long mno = 94L;
+        List<Object[]> result = movieRepository.getMovieWithAll(mno);
+        for(Object[] objects : result) {
             System.out.println(Arrays.toString(objects));
         }
     }
