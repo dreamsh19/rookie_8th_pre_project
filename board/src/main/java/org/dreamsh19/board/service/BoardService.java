@@ -40,4 +40,6 @@ public interface BoardService {
     PageResultDTO<Object[], BoardDTO> getList(PageRequestDTO pageRequestDTO);
 
     BoardDTO getBoardDTO(Long bno);
+
+    void deleteByBnoWithReplies(Long bno);
 }

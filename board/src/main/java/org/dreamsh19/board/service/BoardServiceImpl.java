@@ -7,10 +7,12 @@ import org.dreamsh19.board.dto.PageResultDTO;
 import org.dreamsh19.board.entity.Board;
 import org.dreamsh19.board.entity.Member;
 import org.dreamsh19.board.repository.BoardRepository;
+import org.dreamsh19.board.repository.ReplyRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Function;
 
@@ -19,6 +21,8 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
+
+    private final ReplyRepository replyRepository;
 
     @Override
     public Long register(BoardDTO dto) {
@@ -45,6 +49,13 @@ public class BoardServiceImpl implements BoardService {
         Object result = boardRepository.getBoardByBnoWithReplyCount(bno);
         Object[] row = (Object[]) result;
         return entityToDTO((Board) row[0],(Member) row[1], (Long) row[2]);
+    }
+
+    @Transactional
+    @Override
+    public void deleteByBnoWithReplies(Long bno) {
+        replyRepository.deleteByBno(bno);
+        boardRepository.deleteById(bno);
     }
 
 
