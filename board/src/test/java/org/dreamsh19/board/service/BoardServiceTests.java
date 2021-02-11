@@ -36,4 +36,9 @@ public class BoardServiceTests {
         BoardDTO result = boardService.getBoardDTO(100L);
         System.out.println(result);
     }
+
+    @Test
+    public void deleteTest(){
+        boardService.deleteByBnoWithReplies(1L);
+    }
 }
