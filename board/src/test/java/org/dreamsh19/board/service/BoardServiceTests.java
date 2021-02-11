@@ -41,4 +41,14 @@ public class BoardServiceTests {
     public void deleteTest(){
         boardService.deleteByBnoWithReplies(1L);
     }
+
+    @Test
+    public void updateTest(){
+        BoardDTO dto = BoardDTO.builder()
+                .bno(2L)
+                .title("Updated Title")
+                .content("Updated Content")
+                .build();
+        boardService.update(dto);
+    }
 }

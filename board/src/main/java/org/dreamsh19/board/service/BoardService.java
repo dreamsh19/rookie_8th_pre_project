@@ -42,4 +42,6 @@ public interface BoardService {
     BoardDTO getBoardDTO(Long bno);
 
     void deleteByBnoWithReplies(Long bno);
+
+    void update(BoardDTO boardDTO);
 }
