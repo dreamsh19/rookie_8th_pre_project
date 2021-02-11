@@ -30,4 +30,10 @@ public class BoardServiceTests {
             System.out.println(boardDTO);
         }
     }
+
+    @Test
+    public void getTest() {
+        BoardDTO result = boardService.getBoardDTO(100L);
+        System.out.println(result);
+    }
 }
