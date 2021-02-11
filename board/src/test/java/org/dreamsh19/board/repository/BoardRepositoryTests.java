@@ -5,6 +5,10 @@ import org.dreamsh19.board.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -37,7 +41,7 @@ public class BoardRepositoryTests {
 
     @Transactional
     @Test
-    public void testRead1(){
+    public void testRead1() {
 
         Optional<Board> result = boardRepository.findById(1L);
 
@@ -47,19 +51,37 @@ public class BoardRepositoryTests {
     }
 
     @Test
-    public void testReadWriterWithJPQL(){
+    public void testReadWriterWithJPQL() {
         Object result = boardRepository.getBoardWithWriter(1L);
         Object[] arr = (Object[]) result;
         System.out.println(Arrays.toString(arr));
     }
 
     @Test
-    public void testReadReplyWithJPQL(){
+    public void testReadReplyWithJPQL() {
 
         List<Object[]> result = boardRepository.getBoardWithReply(1L);
-        for(Object[] arr : result){
+        for (Object[] arr : result) {
             System.out.println(Arrays.toString(arr));
         }
+    }
+
+    @Test
+    public void testBoardListWithReplyCount() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+        Page<Object[]> result = boardRepository.getBoardListWithReplyCount(pageable);
+        result.get().forEach(board -> {
+            System.out.println(Arrays.toString(board));
+        });
+
+    }
+
+    @Test
+    public void testBoardByBnoWithReplyCount(){
+        Object result = boardRepository.getBoardByBnoWithReplyCount(100L);
+        Object[] arr = (Object[]) result;
+        System.out.println(Arrays.toString(arr));
     }
 
 }
