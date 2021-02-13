@@ -1,6 +1,7 @@
 package org.dreamsh19.board.repository;
 
 import org.dreamsh19.board.entity.Board;
+import org.dreamsh19.board.repository.search.SearchBoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository {
 
     // JPQL
     // 연관관계 있음(fk) join 뒤에 on이 없지만 알아서 가져와줌.
