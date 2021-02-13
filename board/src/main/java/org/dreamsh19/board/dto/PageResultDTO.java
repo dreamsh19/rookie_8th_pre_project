@@ -15,6 +15,10 @@ public class PageResultDTO<EN, DTO> {
 
     int size;
 
+    int page;
+
+    boolean next;
+
     int start, end;
 
     public PageResultDTO(Page<EN> result, Function<EN, DTO> entityToDTO) {
@@ -22,9 +26,10 @@ public class PageResultDTO<EN, DTO> {
         int totalPages = result.getTotalPages();
         size = result.getSize();
         Pageable pageable = result.getPageable();
-        int page = pageable.getPageNumber();
-        start = (page / 10) * 10 + 1;
+        page = pageable.getPageNumber() + 1;
+        start = ((page - 1) / 10) * 10 + 1;
         end = Math.min(start + 9, totalPages);
+        next = totalPages > end;
 
     }
 
