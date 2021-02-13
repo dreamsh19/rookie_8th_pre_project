@@ -9,9 +9,7 @@ import org.dreamsh19.board.entity.Member;
 import org.dreamsh19.board.repository.BoardRepository;
 import org.dreamsh19.board.repository.ReplyRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +34,11 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public PageResultDTO<Object[], BoardDTO> getList(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("bno").descending());
-        Page<Object[]> result = boardRepository.getBoardListWithReplyCount(pageable);
+        Page<Object[]> result = boardRepository.searchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getPageable(Sort.by("bno").descending()));
+
         Function<Object[], BoardDTO> fn = (row ->
                 entityToDTO((Board) row[0], (Member) row[1], (Long) row[2]));
 
