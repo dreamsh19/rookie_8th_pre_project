@@ -78,10 +78,15 @@ public class BoardRepositoryTests {
     }
 
     @Test
-    public void testBoardByBnoWithReplyCount(){
+    public void testBoardByBnoWithReplyCount() {
         Object result = boardRepository.getBoardByBnoWithReplyCount(100L);
         Object[] arr = (Object[]) result;
         System.out.println(Arrays.toString(arr));
     }
 
+    @Test
+    public void testSearchPage() {
+        Pageable pageable = PageRequest.of(1, 10, Sort.by("bno").descending());
+        boardRepository.searchPage("t", "1", pageable);
+    }
 }
